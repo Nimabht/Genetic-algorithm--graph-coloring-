@@ -1,22 +1,34 @@
 import Generic from "./generic";
 import Graph from "./graph";
 
-// Create a graph with 6 vertices and add edges
-const graph = new Graph(6);
+// Create a graph with 15 vertices and add edges
+const graph = new Graph(15);
 graph.addEdge(0, 1);
 graph.addEdge(0, 2);
-graph.addEdge(1, 2);
-graph.addEdge(1, 3);
-graph.addEdge(2, 3);
-graph.addEdge(3, 4);
-graph.addEdge(4, 5);
+graph.addEdge(0, 3);
+graph.addEdge(1, 4);
+graph.addEdge(2, 5);
+graph.addEdge(3, 6);
+graph.addEdge(4, 7);
+graph.addEdge(4, 8);
+graph.addEdge(5, 9);
+graph.addEdge(5, 10);
+graph.addEdge(6, 11);
+graph.addEdge(7, 12);
+graph.addEdge(8, 12);
+graph.addEdge(9, 13);
+graph.addEdge(10, 14);
+graph.addEdge(11, 14);
+graph.addEdge(12, 14);
+graph.addEdge(13, 14);
 
 // Set the parameters for the genetic algorithm
 const maxColors = 3;
-const populationSize = 10;
-const tournamentSize = 5;
+const populationSize = 30;
+const tournamentSize = 15;
 const mutationRate = 0.1;
-const numberOfGenerations = 100;
+const numberOfGenerations = 500;
+
 // Create a Generic instance with the graph and parameters
 const geneticAlgorithm = new Generic(
   graph,
@@ -44,18 +56,21 @@ for (let generation = 1; generation < numberOfGenerations; generation++) {
   }
   // Replace the current population with the offspring population
   geneticAlgorithm.population = offspringPopulation;
+
+  //Checking the best fitness in the current population (if its one then we found the solution!!)
+  const bestIndividual = geneticAlgorithm.bestIndividualInPopulation();
+  if (bestIndividual.fitness == 1) break;
+  console.log(
+    "----------------------------------------------------------------"
+  );
+  console.log(
+    `Best Individual (Coloring) at generation ${generation}`,
+    bestIndividual
+  );
 }
 
-let bestIndividual: number[] | null = null;
-let bestFitness = 0;
-
-for (const individual of geneticAlgorithm.population) {
-  const fitness = geneticAlgorithm.calculateFitness(graph, individual);
-
-  if (fitness > bestFitness) {
-    bestIndividual = individual;
-    bestFitness = fitness;
-  }
-}
-
-console.log("Best Individual (Coloring):", bestIndividual);
+console.log("----------------------------------------------------------------");
+console.log(
+  "Best Individual (Coloring) at the end:",
+  geneticAlgorithm.bestIndividualInPopulation()
+);
