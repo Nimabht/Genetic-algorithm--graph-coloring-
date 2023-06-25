@@ -92,6 +92,22 @@ class Generic {
 
     return mutatedIndividual;
   }
-}
 
+  bestIndividualInPopulation(): any {
+    let bestIndividual: number[] = this.population[0];
+    let bestFitness: number = this.calculateFitness(this.graph, bestIndividual);
+    for (const individual of this.population) {
+      const individualFitness = this.calculateFitness(this.graph, individual);
+      if (individualFitness > bestFitness) {
+        bestIndividual = individual;
+        bestFitness = individualFitness;
+      }
+    }
+
+    return {
+      individual: bestIndividual,
+      fitness: bestFitness,
+    };
+  }
+}
 export default Generic;
