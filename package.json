@@ -1,0 +1,13 @@
+{
+  "name": "genetic-algorithm-(graph-coloring)",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "compile":"tsc && node ./dist/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
